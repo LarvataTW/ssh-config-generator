@@ -1,0 +1,6 @@
+- name: my.example.server
+  ip: 10.10.10.10
+  port: 60022
+  porxy: my.example.bastion
+  user: root
+  key: ~/.ssh/my.example.key.pem

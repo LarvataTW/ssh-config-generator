@@ -1,0 +1,47 @@
+keys:
+  - ~/.ssh/id_rsa
+
+###
+
+hosts:
+
+  - name: my.awesome.server
+    alias:
+      - my.awesome.server.nickname1
+      - my.awesome.server.nickname2
+    ip: 8.8.8.8
+    user: root
+    port: 8022
+    proxy: my.bastion.server
+    key: ~/.ssh/special_key_for_this_server
+
+  # *** REQUIRED ***
+  - name: my.great.server
+    ip: 1.1.1.1
+
+###
+
+clients:
+
+  - name: Rich Papa
+    user: staff
+    port: 10022
+    proxy: secret.bastion.server
+    key: ~/.ssh/special_key.pem
+
+    groups:
+
+      - name: Staging
+        port: 20022
+        proxy: bastion.server.for.staging
+        key: ~/.ssh/special_key.pem
+        hosts:
+          - name: staging.server
+            alias:
+              - staging.db.server
+              - staging.web.server
+            ip: 192.168.10.10
+            key: ~/.ssh/special_key_for_this_server.pem
+
+      - name: Production
+        hosts: !include example_hosts.yaml
