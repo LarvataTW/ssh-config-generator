@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import re
@@ -25,6 +25,10 @@ Loader.add_constructor('!include', Loader.include)
 # Capture our current directory
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
+def debug(var):
+    print(var)
+    return ''
+
 def generate_content(yaml_file, template_file):
     # Create the jinja2 environment.
     # Notice the use of trim_blocks, which greatly helps control whitespace.
@@ -34,6 +38,7 @@ def generate_content(yaml_file, template_file):
         lstrip_blocks=True,
         keep_trailing_newline=True
     )
+    j2_env.filters['debug'] = debug
 
     with open(yaml_file) as yml:
         yml = yaml.load(yml, Loader)

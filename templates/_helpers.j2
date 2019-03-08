@@ -8,6 +8,7 @@
   {% if _host.port %}{% set _port = _host.port %} {% endif %}
   {% if _host.key %}{% set _key = _host.key %} {% endif %}
   {% if _host.proxy %}{% set _proxy = _host.proxy %} {% endif %}
+  {% if _host.proxy == False %} {% set _proxy = False %} {% endif %}
   Host
   {%- if _host.alias %}
     {{ _host.alias | join(' ') }}
@@ -40,6 +41,7 @@
   {% if _group.port %} {% set _port = _group.port %} {% endif %}
   {% if _group.key %} {% set _key = _group.key %} {% endif %}
   {% if _group.proxy %} {% set _proxy = _group.proxy %} {% endif %}
+  {% if _group.proxy == False %} {% set _proxy = False %} {% endif %}
   {% for _host in _group.hosts %}
     {{ host(_host, _user, _port, _key, _proxy) }}
   {% endfor %}
