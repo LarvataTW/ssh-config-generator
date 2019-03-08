@@ -1,0 +1,15 @@
+{% from "templates/_helpers.j2" import ansible_host, ansible_group %}
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+{% for _host in hosts -%}
+  {{ ansible_host(_host) }}
+{% endfor %}
+
+{% for client in clients -%}
+# {{ client.name }}
+
+  {% for _group in client.groups -%}
+    {{ ansible_group(_group, client.user, client.port, client.key) }}
+  {% endfor %}
+{% endfor %}

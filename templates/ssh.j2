@@ -1,0 +1,14 @@
+{% include "templates/_base.j2" -%}
+{% from "templates/_helpers.j2" import host, group %}
+
+{% for _host in hosts -%}
+  {{ host(_host) }}
+{% endfor %}
+
+{% for client in clients -%}
+# {{ client.name }}
+
+  {% for _group in client.groups -%}
+    {{ group(_group, client.user, client.port, client.key, client.proxy) }}
+  {% endfor %}
+{% endfor %}

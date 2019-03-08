@@ -1,0 +1,5 @@
+# pip install -r requirements.txt
+
+Jinja2
+python-dotenv
+pyyaml==4.2b4

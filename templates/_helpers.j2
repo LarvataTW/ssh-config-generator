@@ -1,0 +1,82 @@
+{# host 函式：用來輸出單一 Host 的配置 #}
+{% macro host(_host, _group_user, _group_port, _group_key, _group_proxy) %}
+  {% set _user = _group_user %}
+  {% set _port = _group_port %}
+  {% set _key = _group_key %}
+  {% set _proxy = _group_proxy %}
+  {% if _host.user %}{% set _user = _host.user %} {% endif %}
+  {% if _host.port %}{% set _port = _host.port %} {% endif %}
+  {% if _host.key %}{% set _key = _host.key %} {% endif %}
+  {% if _host.proxy %}{% set _proxy = _host.proxy %} {% endif %}
+  Host
+  {%- if _host.alias %}
+    {{ _host.alias | join(' ') }}
+  {%- endif %}
+  {{ _host.name }}
+  Hostname {{ _host.ip }}
+  {% if _user %}
+    User {{ _user }}
+  {% endif %}
+  {% if _port %}
+    Port {{ _port }}
+  {% endif %}
+  {% if _key %}
+    IdentityFile {{ _key }}
+  {% endif %}
+  {% if _proxy %}
+    ProxyCommand ssh {{ _proxy }} -W %h:%p
+  {% endif %}
+{% endmacro %}
+
+{# group 函式：用來輸出一組 group，group 內有 hosts 陣列 #}
+{% macro group(_group, _client_user, _client_port, _client_key, _client_proxy) %}
+## {{ _group.name }}
+
+  {% set _user = _client_user %}
+  {% set _port = _client_port %}
+  {% set _key = _client_key %}
+  {% set _proxy = _client_proxy %}
+  {% if _group.user %} {% set _user = _group.user %} {% endif %}
+  {% if _group.port %} {% set _port = _group.port %} {% endif %}
+  {% if _group.key %} {% set _key = _group.key %} {% endif %}
+  {% if _group.proxy %} {% set _proxy = _group.proxy %} {% endif %}
+  {% for _host in _group.hosts %}
+    {{ host(_host, _user, _port, _key, _proxy) }}
+  {% endfor %}
+{% endmacro %}
+
+{# ansible_host 函式：用來輸出 Ansible Inventory 單一 Host 的配置 #}
+{% macro ansible_host(_host, _group_user, _group_port, _group_key) %}
+  {% set _user = _group_user %}
+  {% set _port = _group_port %}
+  {% set _key = _group_key %}
+  {% if _host.user %}{% set _user = _host.user %} {% endif %}
+  {% if _host.port %}{% set _port = _host.port %} {% endif %}
+  {% if _host.key %}{% set _key = _host.key %} {% endif %}
+  {{ _host.name -}}
+{#
+  {% if _user %}
+    ansible_user={{ _user }}
+  {%- endif %}
+  {% if _port %}
+    ansible_port={{ _port }}
+  {%- endif %}
+  {% if _key %}
+    ansible_ssh_private_key_file={{ _key }}
+  {%- endif %}
+#}
+{% endmacro %}
+
+{# ansible_group 函式：用來輸出一組 Ansible Inventory Group #}
+{% macro ansible_group(_group, _client_user, _client_port, _client_key) %}
+[{{ _group.name }}]
+  {% set _user = _client_user %}
+  {% set _port = _client_port %}
+  {% set _key = _client_key %}
+  {% if _group.user %} {% set _user = _group.user %} {% endif %}
+  {% if _group.port %} {% set _port = _group.port %} {% endif %}
+  {% if _group.key %} {% set _key = _group.key %} {% endif %}
+  {% for _host in _group.hosts %}
+    {{ ansible_host(_host, _user, _port, _key) }}
+  {% endfor %}
+{% endmacro %}

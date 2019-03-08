@@ -1,0 +1,17 @@
+Host *
+  ForwardAgent yes
+  ForwardX11 no
+  GSSAPIAuthentication no
+  ControlMaster auto
+  ControlPath ~/tmp/.ssh/%h-%p-%r.sock
+  ControlPersist yes
+  Compression yes
+  Port {{ ssh_port | default(22) }}
+  Protocol 2
+  ServerAliveInterval 5
+  StrictHostKeyChecking no
+{% if keys is defined %}
+{% for key in keys %}
+  IdentityFile {{ key }}
+{% endfor %}
+{% endif %}

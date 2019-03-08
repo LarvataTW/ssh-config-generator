@@ -1,0 +1,16 @@
+*.swp
+*.tmp
+*.key
+*.pem
+*.pub
+*.backup
+
+known_hosts
+
+id_rsa
+id_rsa.pub
+
+.env
+
+vars/
+output/
