@@ -12,7 +12,7 @@ hosts:
     ip: 8.8.8.8
     user: root
     port: 8022
-    proxy: my.bastion.server
+    proxy: no
     key: ~/.ssh/special_key_for_this_server
 
   # *** REQUIRED ***
@@ -42,6 +42,7 @@ clients:
               - staging.web.server
             ip: 192.168.10.10
             key: ~/.ssh/special_key_for_this_server.pem
+            proxy: no
 
       - name: Production
         hosts: !include example_hosts.yaml
