@@ -5,6 +5,8 @@
 *.pub
 *.backup
 
+Makefile.*
+
 known_hosts
 
 id_rsa
