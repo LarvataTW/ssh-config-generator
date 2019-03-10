@@ -12,9 +12,16 @@ init: ## 初始化運作環境
 .PHONY: update
 update: ## 更新 config 檔案
 	$(MAKE) init
-	python3 generator.py -y vars/your.servers.yaml # 預設產出 SSH config 檔案
-	python3 generator.py -y vars/your.servers.yaml -t templaes/ssh.j2 -o path/to/your/ssh/config
-	python3 generator.py -y vars/your.servers.yaml -t templates/ansible.j2 -o path/to/your/ansible/inventories/hosts
+	# 請參考以下使用範例，建立符合自己環境的 generator 指令：
+	#
+	# 預設使用 templates/ssh.j2 產出 SSH config 檔案到 output 目錄下
+	# python3 generator.py -y vars/your.servers.yaml
+	#
+	# 產出 SSH config 到指定位置
+	# python3 generator.py -y vars/your.servers.yaml -t templaes/ssh.j2 -o path/to/your/ssh/config
+	#
+	# 產出 Ansible Inventory 到指定位置
+	# python3 generator.py -y vars/your.servers.yaml -t templates/ansible.j2 -o path/to/your/ansible/inventories/hosts
 
 # Absolutely awesome: http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
