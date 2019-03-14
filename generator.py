@@ -29,7 +29,7 @@ def debug(var):
     print(var)
     return ''
 
-def generate_content(yaml_file, template_file):
+def generate_content(yaml_file, template_file='templates/ssh.j2'):
     # Create the jinja2 environment.
     # Notice the use of trim_blocks, which greatly helps control whitespace.
     j2_env = Environment(
@@ -42,9 +42,6 @@ def generate_content(yaml_file, template_file):
 
     with open(yaml_file) as yml:
         yml = yaml.load(yml, Loader)
-
-    if not template_file:
-        template_file = 'templates/ssh.j2'
 
     client_name = yml['clients'][0]['name']
     template_kind = os.path.splitext(os.path.basename(template_file))[0]
