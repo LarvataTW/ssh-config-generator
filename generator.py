@@ -29,7 +29,7 @@ def debug(var):
     print(var)
     return ''
 
-def generate_content(yaml_file, template_file='templates/ssh.j2'):
+def generate_content(yaml_file, template_file):
     # Create the jinja2 environment.
     # Notice the use of trim_blocks, which greatly helps control whitespace.
     j2_env = Environment(
@@ -73,13 +73,13 @@ def save_content(content, output, client_name=None, kind=None):
     if not os.path.exists(os.path.dirname(output)):
         os.makedirs(os.path.dirname(output))
 
-    with open(output) as output:
+    with open(output, 'w') as output:
         output.write(content)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("-t", "--template", help="Jinja2 template file.")
+    parser.add_argument("-t", "--template", help="Jinja2 template file.", default="templates/ssh.j2")
     parser.add_argument("-y", "--yaml", help="Values in a YAML file.")
     parser.add_argument("-o", "--output", help="Save output to a file.")
     args = parser.parse_args()
