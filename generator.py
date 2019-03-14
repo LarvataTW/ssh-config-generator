@@ -73,9 +73,8 @@ def save_content(content, output, client_name=None, kind=None):
     if not os.path.exists(os.path.dirname(output)):
         os.makedirs(os.path.dirname(output))
 
-    f = open(output, 'w')
-    f.write(content)
-    f.close
+    with open(output) as output:
+        output.write(content)
 
 
 if __name__ == '__main__':
