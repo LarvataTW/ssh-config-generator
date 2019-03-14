@@ -43,9 +43,6 @@ def generate_content(yaml_file, template_file):
     with open(yaml_file) as yml:
         yml = yaml.load(yml, Loader)
 
-    if not template_file:
-        template_file = 'templates/ssh.j2'
-
     client_name = yml['clients'][0]['name']
     template_kind = os.path.splitext(os.path.basename(template_file))[0]
     template = j2_env.get_template(template_file)
@@ -76,14 +73,13 @@ def save_content(content, output, client_name=None, kind=None):
     if not os.path.exists(os.path.dirname(output)):
         os.makedirs(os.path.dirname(output))
 
-    f = open(output, 'w')
-    f.write(content)
-    f.close
+    with open(output, 'w') as output:
+        output.write(content)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("-t", "--template", help="Jinja2 template file.")
+    parser.add_argument("-t", "--template", help="Jinja2 template file.", default="templates/ssh.j2")
     parser.add_argument("-y", "--yaml", help="Values in a YAML file.")
     parser.add_argument("-o", "--output", help="Save output to a file.")
     args = parser.parse_args()
