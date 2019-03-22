@@ -18,7 +18,7 @@ update: ## 更新 config 檔案
 	# python3 generator.py -y vars/your.servers.yaml
 	#
 	# 產出 SSH config 到指定位置
-	# python3 generator.py -y vars/your.servers.yaml -t templaes/ssh.j2 -o path/to/your/ssh/config
+	# python3 generator.py -y vars/your.servers.yaml -t templates/ssh.j2 -o path/to/your/ssh/config
 	#
 	# 產出 Ansible Inventory 到指定位置
 	# python3 generator.py -y vars/your.servers.yaml -t templates/ansible.j2 -o path/to/your/ansible/inventories/hosts

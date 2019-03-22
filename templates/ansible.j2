@@ -1,7 +1,10 @@
 {% from "templates/_helpers.j2" import ansible_host, ansible_group %}
 [all:vars]
-ansible_python_interpreter=/usr/bin/python3
+ansible_python_interpreter=auto
 
+# default group for hosts
+
+[default]
 {% for _host in hosts -%}
   {{ ansible_host(_host) }}
 {% endfor %}
