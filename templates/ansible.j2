@@ -2,6 +2,9 @@
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
 
+# default group for hosts
+
+[default]
 {% for _host in hosts -%}
   {{ ansible_host(_host) }}
 {% endfor %}
