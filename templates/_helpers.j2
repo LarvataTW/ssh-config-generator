@@ -7,7 +7,9 @@
   {% if _host.user %}{% set _user = _host.user %} {% endif %}
   {% if _host.user == False %} {% set _user = False %} {% endif %}
   {% if _host.port %}{% set _port = _host.port %} {% endif %}
+  {% if _host.port == False %}{% set _port = False %} {% endif %}
   {% if _host.key %}{% set _key = _host.key %} {% endif %}
+  {% if _host.key == False %}{% set _key = False %} {% endif %}
   {% if _host.proxy %}{% set _proxy = _host.proxy %} {% endif %}
   {% if _host.proxy == False %} {% set _proxy = False %} {% endif %}
   Host
@@ -41,7 +43,9 @@
   {% if _group.user %} {% set _user = _group.user %} {% endif %}
   {% if _group.user == False %} {% set _user = False %} {% endif %}
   {% if _group.port %} {% set _port = _group.port %} {% endif %}
+  {% if _group.port == False %} {% set _port = False %} {% endif %}
   {% if _group.key %} {% set _key = _group.key %} {% endif %}
+  {% if _group.key == False %} {% set _key = False %} {% endif %}
   {% if _group.proxy %} {% set _proxy = _group.proxy %} {% endif %}
   {% if _group.proxy == False %} {% set _proxy = False %} {% endif %}
   {% for _host in _group.hosts %}
